@@ -14,9 +14,12 @@ import HeaderButton from "../components/UI/HeaderButton";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import DrawerButton from "../components/UI/DrawerButton";
+import UserProductsScreen from "../screens/user/UserProductsScreen";
+import EditProductScreen from "../screens/user/EditProductScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
 const navigationOptions = ({ navigation }) => {
     return {
         headerStyle: {
@@ -41,7 +44,26 @@ const navigationOptions = ({ navigation }) => {
         ),
     };
 };
-const ShopNavigator = (props) => {
+
+const buttonNav = ({navigation}) => {
+    return {
+        title: "Your Products" ,
+        headerRight: ({}) => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+              <Item
+                title="Add"
+                iconName={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
+                onPress={({})=>{
+                    navigation.navigate('EditProduct');
+                }}
+              />
+            </HeaderButtons>
+        )
+}
+}
+
+const ShopNavigator = ({navigation}) => {
+
     return (
         <NavigationContainer>
             <Drawer.Navigator
@@ -58,7 +80,7 @@ const ShopNavigator = (props) => {
                 <Stack.Screen
                     name="ProductDetail"
                     component={ProductDetailScreen}
-                    options={({ route }) => ({
+                    options={({ props }) => ({
                         //title: route.params.title
                     })}
                 />
@@ -71,6 +93,16 @@ const ShopNavigator = (props) => {
                     name="Orders"
                     component={OrdersScreen}
                     options={{ title: "Orders"}}
+                />
+                <Stack.Screen
+                    name="UserProduct"
+                    component={UserProductsScreen}
+                    options={buttonNav}
+                />
+                <Stack.Screen
+                    name="EditProduct"
+                    component={EditProductScreen}
+                    options={{ title: "Edit"}}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
@@ -94,6 +126,14 @@ const Opciones = ({ navigation }) => {
                    
                 }}
                 iconName={Platform.OS === "android" ? "md-list" : "ios-list"}
+            />
+            <DrawerButton
+                text={<Text style={styles.text}>Admin</Text>}
+                onPress={() => {
+                    navigation.navigate("UserProduct");
+                   
+                }}
+                iconName={Platform.OS === "android" ? "md-create" : "ios-create"}
             />
         </DrawerContentScrollView>
     );

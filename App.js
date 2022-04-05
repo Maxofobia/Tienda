@@ -7,7 +7,7 @@ import ShopNavigator from "./navigation/ShopNavigator";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import cartReducer from "./store/reducers/cart";
-import ordersReducer from "./store/reducers/order";
+import ordersReducer from "./store/reducers/orders";
 
 const rootReducer = combineReducers({
   products: productsReducer,

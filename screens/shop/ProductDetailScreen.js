@@ -16,11 +16,11 @@ const Stack = createNativeStackNavigator();
 
 
 
-const ProductDetailScreen = ({props, route}) => {
-    const productId = route.params.productId;
+const ProductDetailScreen = (props) => {
+    const productId = props.route.params.productId;
     const selectedProduct = useSelector(state => state.products.availableProducts.find(p => p.id === productId));
     const dispatch = useDispatch();
-    console.log(selectedProduct);
+    props.navigation.setOptions({headerTitle: selectedProduct.title})
     return (
         <ScrollView>
             <Image source={{uri: selectedProduct.imageUrl}}  style={styles.image}/>
